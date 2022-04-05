@@ -58,23 +58,27 @@ public class IndlaesPersonerOgTilmeldinger {
 						String efternavn = values.get(2);
 						String koen = values.get(3);
 						Date foedselsdato = null;
+						String by = values.get(5);
+						String adresse = values.get(6);
+						String postnummer = values.get(7);
+
 						try {
 							foedselsdato = dateParser.parse(values.get(4));
 						} catch (ParseException e) {
 							throw new NumberFormatException("Ugyldig værdi (" + values.get(4) + ") for fødselsdato på linie " + lineNbr);
 						}
 
-						String foreningsId = values.get(5).trim().length() > 0 ? values.get(5).trim() : null;
-						String eventTypeId = values.get(6).trim().length() > 0 ? values.get(6).trim() : null;
+						String foreningsId = values.get(8).trim().length() > 0 ? values.get(8).trim() : null;
+						String eventTypeId = values.get(9).trim().length() > 0 ? values.get(9).trim() : null;
 						Date eventDato = null;
-						if (values.size() == 8 && values.get(7) != null && values.get(7).trim().length() > 0)
+						if (values.size() == 11 && values.get(10) != null && values.get(10).trim().length() > 0)
 							try {
-								eventDato = dateParser.parse(values.get(7));
+								eventDato = dateParser.parse(values.get(10));
 							} catch (ParseException e) {
-								throw new NumberFormatException("Ugyldig værdi (" + values.get(7) + ") for event dato på linie " + lineNbr);
+								throw new NumberFormatException("Ugyldig værdi (" + values.get(10) + ") for event dato på linie " + lineNbr);
 							}
 
-						PersonOgTilmelding poa = new PersonOgTilmelding(email, fornavn, efternavn, koen, foedselsdato, foreningsId, eventTypeId, eventDato);
+						PersonOgTilmelding poa = new PersonOgTilmelding(email, fornavn, efternavn, koen, foedselsdato, by, adresse, postnummer, foreningsId, eventTypeId, eventDato);
 						poaList.add(poa);
 					} else
 						throw new IOException("Ugyldigt antal værdier på linie " +lineNbr +". Forventede " +NUMBER_OF_FIELDS_EXPECTED +" værdier, læste " +values.size());

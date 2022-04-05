@@ -53,6 +53,9 @@ public class IndlaesOgUploadDatafil {
                 String mail = personOgTilmelding.getPerson().getEmail();
                 Date foedseldato = personOgTilmelding.getPerson().getFoedselsdato();
                 String koen = personOgTilmelding.getPerson().getKoen();
+                String adresse = personOgTilmelding.getPerson().getAdresse();
+                String by = personOgTilmelding.getPerson().getBy();
+                String postnummer = personOgTilmelding.getPerson().getPostnummer();
 
                 // Her skal kode indsættes, der opdaterer person tabel med informationen
                 //
@@ -64,13 +67,22 @@ public class IndlaesOgUploadDatafil {
 
 
                 // Metode 2 - mere sikker
-                PreparedStatement prepareStatement = connection.prepareStatement("insert into Person values(?, ?, ?, ?, ?)");
-                prepareStatement.setString(1,fornavn);
-                prepareStatement.setString(2,efternavn);
-                prepareStatement.setString(3,mail);
-                prepareStatement.setString(4, String.valueOf(foedseldato));
-                prepareStatement.setString(5,koen);
+                PreparedStatement prepareStatement = connection.prepareStatement("INSERT INTO Person VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+                prepareStatement.setString(1,mail);
+                prepareStatement.setString(2,fornavn);
+                prepareStatement.setString(3,efternavn);
+                prepareStatement.setString(4,adresse);
+                prepareStatement.setString(5,postnummer);
+                prepareStatement.setString(6, String.valueOf(foedseldato));
+                prepareStatement.setString(7,koen);
                 prepareStatement.execute();
+
+
+                // Insert i personpost
+                PreparedStatement prepareStatement2 = connection.prepareStatement("INSERT INTO PersonPostBy VALUES(?,?);");
+                prepareStatement2.setString(1,postnummer);
+                prepareStatement2.setString(2,by);
+                prepareStatement2.execute();
 
 
                 System.out.print("Person: " + personOgTilmelding.getPerson());
