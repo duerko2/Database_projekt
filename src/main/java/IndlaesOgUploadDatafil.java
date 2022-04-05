@@ -62,12 +62,12 @@ public class IndlaesOgUploadDatafil {
                 //
 
                 // Metode 1 til INSERT
-                // Statement statement = connection.createStatement();
-                // statement.execute("INSERT Person VALUES("+fornavn+","+efternavn+","+mail+","+foedseldato+","+koen+");");
+                //Statement statement = connection.createStatement();
+                //statement.execute("INSERT Person VALUES("+fornavn+","+efternavn+","+mail+","+foedseldato+","+koen+");");
 
 
                 // Metode 2 - mere sikker
-                PreparedStatement prepareStatement = connection.prepareStatement("INSERT INTO Person VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement prepareStatement = connection.prepareStatement("INSERT INTO Person VALUES(?, ?, ?, ?, ?, ?, ?);");
                 prepareStatement.setString(1,mail);
                 prepareStatement.setString(2,fornavn);
                 prepareStatement.setString(3,efternavn);
@@ -78,33 +78,52 @@ public class IndlaesOgUploadDatafil {
                 prepareStatement.execute();
 
 
-                // Insert i personpost
-                PreparedStatement prepareStatement2 = connection.prepareStatement("INSERT INTO PersonPostBy VALUES(?,?);");
-                prepareStatement2.setString(1,postnummer);
-                prepareStatement2.setString(2,by);
-                prepareStatement2.execute();
+                try{
+                    // Insert i personpost
+                    PreparedStatement prepareStatement2 = connection.prepareStatement("INSERT INTO PersonPostBy VALUES(?,?);");
+                    prepareStatement2.setString(1,postnummer);
+                    prepareStatement2.setString(2,by);
+                    prepareStatement2.execute();
+                } catch(SQLException e){
+                    e.printStackTrace();
+                }
+
 
 
                 System.out.print("Person: " + personOgTilmelding.getPerson());
 
 
                 if (personOgTilmelding.getTilmelding() != null) {
+
+                    // Hvis personen også deltager i et event
+                    // --------------------------------------
+
                     Date dato = personOgTilmelding.getTilmelding().getEventDate();
                     String eventTypeId = personOgTilmelding.getTilmelding().getEventTypeId();
                     String foreningsID = personOgTilmelding.getTilmelding().getForeningsId();
 
-                    //Dummy tal.
-                    int startNummer = 12345;
-                    Time time = new Time(4,42,37);
+                    //Dummy tal eller null.
+                    String startNummer = null;
+                    Time time = null;
 
 
                     // Her skal kode indsættes, der opdaterer deltager tabel med informationen
-                    // Et startnummer skal genereres.
+                    // Et startnummer skal genereres?
                     //
                     //
 
-                    Statement statement2 = connection.createStatement();
-                    statement2.execute("INSERT Deltager VALUES("+startNummer+","+time+","+dato+","+eventTypeId+","+foreningsID+","+fornavn+","+efternavn+","+mail+","+foedseldato+","+koen+");");
+                    PreparedStatement statement2 = connection.prepareStatement("INSERT INTO Person Deltager(?, ?, ?, ?, ?, ?);");
+                    statement2.setString(1,startNummer);
+                    statement2.setString(2, String.valueOf(time));
+                    statement2.setString(3, String.valueOf(dato));
+                    statement2.setString(4,eventTypeId);
+                    statement2.setString(5,foreningsID);
+                    statement2.setString(6,mail);
+
+                    // Dårlige metode.
+                    // ---------------
+                    //Statement statement2 = connection.createStatement();
+                    //statement2.execute("INSERT Deltager VALUES("+startNummer+","+time+","+dato+","+eventTypeId+","+foreningsID+","+mail+");");
 
 
                     System.out.println("\tTilmelding: " + personOgTilmelding.getTilmelding());

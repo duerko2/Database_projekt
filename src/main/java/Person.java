@@ -58,7 +58,7 @@ public class Person {
         final String D = ";";
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
 
-        return getEmail() +D +getFornavn() +D +getEfternavn() +D +getKoen() +D +dateFormatter.format(getFoedselsdato());
+        return getEmail() +D +getFornavn() +D +getEfternavn() +D +getKoen() +D +dateFormatter.format(getFoedselsdato())+D+getAdresse()+D+getPostnummer()+D+getBy();
     }
 }
 
