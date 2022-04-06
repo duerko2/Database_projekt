@@ -113,6 +113,15 @@ public class IndlaesOgUploadDatafil {
                     String startNummer = null;
                     java.sql.Time time = null;
 
+                    //Kode til at få startnummer. Trækker højeste nuværende startnummer til det event og inkrementerer med 1.
+                    //PreparedStatement getStartnummer = connection.prepareStatement("SELECT MAX(startnummer) FROM Deltager WHERE Dato="+dato+" AND BegivID="+eventTypeId+" AND ID="+foreningsID+";");
+                    //ResultSet resultSet = getStartnummer.executeQuery();
+                    //resultSet.next();
+                    //startNummer=resultSet.getString(1);
+
+
+
+
 
                     // Her skal kode indsættes, der opdaterer deltager tabel med informationen
                     // Et startnummer skal genereres?
@@ -120,7 +129,7 @@ public class IndlaesOgUploadDatafil {
                     //
 
                     try {
-                        PreparedStatement statement2 = connection.prepareStatement("INSERT INTO Person Deltager(?, ?, ?, ?, ?, ?);");
+                        PreparedStatement statement2 = connection.prepareStatement("INSERT INTO Deltager VALUES(?, ?, ?, ?, ?, ?);");
                         statement2.setString(1, startNummer);
                         statement2.setObject(2, time);
                         statement2.setString(3, dato);
@@ -129,7 +138,7 @@ public class IndlaesOgUploadDatafil {
                         statement2.setString(6, mail);
                         // Kan køres når databasen er opdateret med foreninger og events.
 
-                        //statement2.execute();
+                        statement2.execute();
 
                     } catch(Exception e){
                         System.out.println(e.getMessage());
