@@ -4,9 +4,9 @@ import java.util.Date;
 public class Tilmelding {
     private final String foreningsId;
     private final String eventTypeId;
-    private final Date eventDate;
+    private final String eventDate;
 
-    public Tilmelding(String foreningsId, String eventTypeId, Date eventDate) {
+    public Tilmelding(String foreningsId, String eventTypeId, String eventDate) {
         this.foreningsId = foreningsId;
         this.eventTypeId = eventTypeId;
         this.eventDate = eventDate;
@@ -20,7 +20,7 @@ public class Tilmelding {
         return eventTypeId;
     }
 
-    public Date getEventDate() {
+    public String getEventDate() {
         return eventDate;
     }
     @Override
@@ -28,7 +28,7 @@ public class Tilmelding {
         final String D = ";";
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
 
-        return getForeningsId() +D +getEventTypeId() +D +dateFormatter.format(getEventDate());
+        return getForeningsId() +D +getEventTypeId() +D +getEventDate();
     }
 
 }

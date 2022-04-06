@@ -6,12 +6,12 @@ public class Person {
     private final String fornavn;
     private final String efternavn;
     private final String koen;
-    private final Date foedselsdato;
+    private final String foedselsdato;
     private final String by;
     private final String adresse;
     private final String postnummer;
 
-    public Person(String email, String fornavn, String efternavn, String koen, Date foedselsdato, String by, String adresse, String postnummer) {
+    public Person(String email, String fornavn, String efternavn, String koen, String foedselsdato, String by, String adresse, String postnummer) {
         this.email = email;
         this.fornavn = fornavn;
         this.efternavn = efternavn;
@@ -38,7 +38,7 @@ public class Person {
         return koen;
     }
 
-    public Date getFoedselsdato() {
+    public String getFoedselsdato() {
         return foedselsdato;
     }
 
@@ -58,7 +58,7 @@ public class Person {
         final String D = ";";
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
 
-        return getEmail() +D +getFornavn() +D +getEfternavn() +D +getKoen() +D +dateFormatter.format(getFoedselsdato())+D+getAdresse()+D+getPostnummer()+D+getBy();
+        return getEmail() +D +getFornavn() +D +getEfternavn() +D +getKoen() +D +getFoedselsdato()+D+getAdresse()+D+getPostnummer()+D+getBy();
     }
 }
 

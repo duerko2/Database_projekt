@@ -52,29 +52,29 @@ public class IndlaesPersonerOgTilmeldinger {
 		    	    }
 					if(values.size() == 0)
 						continue;
-					if(values.size() == 7 || values.size() == 8) {
+					if(values.size() == 10 || values.size() == 11) {
 						String email = values.get(0);
 						String fornavn = values.get(1);
 						String efternavn = values.get(2);
 						String koen = values.get(3);
-						Date foedselsdato = null;
+						String foedselsdato = null;
 						String by = values.get(5);
 						String adresse = values.get(6);
 						String postnummer = values.get(7);
 
 						try {
-							foedselsdato = dateParser.parse(values.get(4));
-						} catch (ParseException e) {
+							foedselsdato = values.get(4);
+						} catch (Exception e) {
 							throw new NumberFormatException("Ugyldig værdi (" + values.get(4) + ") for fødselsdato på linie " + lineNbr);
 						}
 
 						String foreningsId = values.get(8).trim().length() > 0 ? values.get(8).trim() : null;
 						String eventTypeId = values.get(9).trim().length() > 0 ? values.get(9).trim() : null;
-						Date eventDato = null;
+						String eventDato = null;
 						if (values.size() == 11 && values.get(10) != null && values.get(10).trim().length() > 0)
 							try {
-								eventDato = dateParser.parse(values.get(10));
-							} catch (ParseException e) {
+								eventDato = values.get(10);
+							} catch (Exception e) {
 								throw new NumberFormatException("Ugyldig værdi (" + values.get(10) + ") for event dato på linie " + lineNbr);
 							}
 

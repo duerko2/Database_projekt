@@ -52,7 +52,7 @@ public class Test {
                     String fornavn = personOgTilmelding.getPerson().getFornavn();
                     String efternavn = personOgTilmelding.getPerson().getEfternavn();
                     String mail = personOgTilmelding.getPerson().getEmail();
-                    Date foedseldato = personOgTilmelding.getPerson().getFoedselsdato();
+                    String foedseldato = personOgTilmelding.getPerson().getFoedselsdato();
                     String koen = personOgTilmelding.getPerson().getKoen();
 
                     // Her skal kode indsættes, der opdaterer person tabel med informationen
@@ -78,7 +78,7 @@ public class Test {
 
 
                     if (personOgTilmelding.getTilmelding() != null) {
-                        Date dato = personOgTilmelding.getTilmelding().getEventDate();
+                        String dato = personOgTilmelding.getTilmelding().getEventDate();
                         String eventTypeId = personOgTilmelding.getTilmelding().getEventTypeId();
                         String foreningsID = personOgTilmelding.getTilmelding().getForeningsId();
 
