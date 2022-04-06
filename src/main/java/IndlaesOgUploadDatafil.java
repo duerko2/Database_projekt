@@ -119,17 +119,23 @@ public class IndlaesOgUploadDatafil {
                     //
                     //
 
-                    PreparedStatement statement2 = connection.prepareStatement("INSERT INTO Person Deltager(?, ?, ?, ?, ?, ?);");
-                    statement2.setString(1,startNummer);
-                    statement2.setObject(2,time);
-                    statement2.setString(3,dato);
-                    statement2.setString(4,eventTypeId);
-                    statement2.setString(5,foreningsID);
-                    statement2.setString(6,mail);
+                    try {
+                        PreparedStatement statement2 = connection.prepareStatement("INSERT INTO Person Deltager(?, ?, ?, ?, ?, ?);");
+                        statement2.setString(1, startNummer);
+                        statement2.setObject(2, time);
+                        statement2.setString(3, dato);
+                        statement2.setString(4, eventTypeId);
+                        statement2.setString(5, foreningsID);
+                        statement2.setString(6, mail);
+                        // Kan køres når databasen er opdateret med foreninger og events.
 
-                    // Kan køres når databasen er opdateret med foreninger og events.
+                        //statement2.execute();
 
-                    //statement2.execute();
+                    } catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
+
+
 
                     // Dårlige metode.
                     // ---------------
@@ -141,7 +147,7 @@ public class IndlaesOgUploadDatafil {
                 } else
                     System.out.println("\t Ingen tilhørende tilmelding");
             }
-        } catch (IOException | SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
