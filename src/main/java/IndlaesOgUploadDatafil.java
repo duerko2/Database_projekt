@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class IndlaesOgUploadDatafil {
     public static void main(String[] args) {
@@ -110,14 +111,21 @@ public class IndlaesOgUploadDatafil {
                     String foreningsID = personOgTilmelding.getTilmelding().getForeningsId();
 
                     //Dummy tal eller null.
-                    String startNummer = null;
+                    String startNummer;
                     java.sql.Time time = null;
 
                     //Kode til at få startnummer. Trækker højeste nuværende startnummer til det event og inkrementerer med 1.
-                    //PreparedStatement getStartnummer = connection.prepareStatement("SELECT MAX(startnummer) FROM Deltager WHERE Dato="+dato+" AND BegivID="+eventTypeId+" AND ID="+foreningsID+";");
-                    //ResultSet resultSet = getStartnummer.executeQuery();
-                    //resultSet.next();
-                    //startNummer=resultSet.getString(1);
+                    PreparedStatement getStartnummer = connection.prepareStatement("SELECT MAX(startnummer) FROM Deltager WHERE Dato="+dato+" AND BegivID='"+eventTypeId+"' AND ID='"+foreningsID+"';");
+                    ResultSet resultSet = getStartnummer.executeQuery();
+                    resultSet.next();
+                    String maxStartnummer=resultSet.getString(1);
+                    if (Objects.isNull(maxStartnummer)){
+                        startNummer="1";
+                    } else {
+                        int SN = Integer.parseInt(maxStartnummer);
+                        SN++;
+                        startNummer=Integer.toString(SN);
+                    }
 
 
 
