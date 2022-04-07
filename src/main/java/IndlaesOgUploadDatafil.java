@@ -111,11 +111,16 @@ public class IndlaesOgUploadDatafil {
                     String foreningsID = personOgTilmelding.getTilmelding().getForeningsId();
 
                     //Dummy tal eller null.
-                    String startNummer;
+
                     java.sql.Time time = null;
 
                     //Kode til at få startnummer. Trækker højeste nuværende startnummer til det event og inkrementerer med 1.
-                    PreparedStatement getStartnummer = connection.prepareStatement("SELECT MAX(startnummer) FROM Deltager WHERE Dato="+dato+" AND BegivID='"+eventTypeId+"' AND ID='"+foreningsID+"';");
+                    String startNummer;
+                    PreparedStatement getStartnummer = connection.prepareStatement
+                            ("SELECT MAX(startnummer) FROM Deltager WHERE Dato=? AND BegivID=?AND ID=?;");
+                    getStartnummer.setString(1,dato);
+                    getStartnummer.setString(2,eventTypeId);
+                    getStartnummer.setString(3,foreningsID);
                     ResultSet resultSet = getStartnummer.executeQuery();
                     resultSet.next();
                     String maxStartnummer=resultSet.getString(1);
